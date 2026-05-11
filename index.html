@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Alandi Carbon Intelligence System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div id="particles-bg"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="glass-navbar">
+        <div class="nav-container">
+            <h1 class="nav-logo">Smart Alandi CIS</h1>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-controls">
+                <button id="darkModeToggle" class="theme-toggle">
+                    <span class="toggle-icon">🌙</span>
+                </button>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="eco-badge">
+                <span class="badge-text">AI-Powered</span>
+                <div class="badge-glow"></div>
+            </div>
+            <h1 class="hero-title">Smart Alandi Carbon Intelligence System</h1>
+            <p class="hero-subtitle">Building a Greener Alandi Through Intelligent Carbon Monitoring</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="5000">0</span>
+                    <span class="stat-label">Users</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="25000">0</span>
+                    <span class="stat-label">kg CO₂ Saved</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="95">0</span>
+                    <span class="stat-label">Satisfaction</span>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="scrollToSection('dashboard')">Explore Dashboard</button>
+                <button class="btn-secondary" onclick="scrollToSection('calculator')">Calculate Emissions</button>
+            </div>
+        </div>
+        <div class="hero-illustration">
+            <svg viewBox="0 0 400 400" class="eco-svg">
+                <defs>
+                    <linearGradient id="leafGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#4ade80;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#22c55e;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <circle cx="200" cy="200" r="150" fill="url(#leafGradient)" opacity="0.1" class="pulse-circle"/>
+                <path d="M200 50 L250 150 L200 200 L150 150 Z" fill="url(#leafGradient)" class="floating-leaf"/>
+                <circle cx="200" cy="200" r="30" fill="#4ade80" class="center-orb"/>
+                <circle cx="200" cy="200" r="20" fill="#22c55e" class="inner-orb"/>
+            </svg>
+        </div>
+        <div class="animated-bg"></div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="dashboard">
+        <div class="container">
+            <div class="section-header">
+                <h2>Carbon Intelligence Dashboard</h2>
+                <div class="live-indicator">
+                    <div class="pulse-dot"></div>
+                    <span>Live Data</span>
+                </div>
+            </div>
+            <div class="dashboard-grid">
+                <div class="dashboard-card glassmorphism premium-card">
+                    <div class="card-header">
+                        <h3>Total CO₂ Emission</h3>
+                        <div class="card-icon">🌱</div>
+                    </div>
+                    <div class="metric" id="totalEmission">0.00 kg</div>
+                    <div class="metric-trend" id="emissionTrend">↗️ +2.5%</div>
+                </div>
+                <div class="dashboard-card glassmorphism premium-card">
+                    <div class="card-header">
+                        <h3>Eco Score</h3>
+                        <div class="card-icon">⭐</div>
+                    </div>
+                    <div class="eco-meter">
+                        <svg class="progress-ring" width="120" height="120">
+                            <circle class="progress-ring-circle-bg" stroke="#333" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+                            <circle class="progress-ring-circle" stroke="#4ade80" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+                        </svg>
+                        <div class="progress-text">
+                            <span id="ecoScore">100</span>
+                            <span class="progress-label">Score</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-card glassmorphism premium-card">
+                    <div class="card-header">
+                        <h3>Emission Level</h3>
+                        <div class="card-icon">⚡</div>
+                    </div>
+                    <div class="led-indicator" id="ledIndicator">
+                        <div class="led green"></div>
+                        <span id="ledLabel">Low</span>
+                    </div>
+                </div>
+                <div class="dashboard-card glassmorphism premium-card">
+                    <div class="card-header">
+                        <h3>Sustainability Rating</h3>
+                        <div class="card-icon">🏆</div>
+                    </div>
+                    <div class="rating-stars" id="ratingStars">
+                        <span class="star">⭐</span>
+                        <span class="star">⭐</span>
+                        <span class="star">⭐</span>
+                        <span class="star">⭐</span>
+                        <span class="star">⭐</span>
+                    </div>
+                    <div class="rating-text" id="ratingText">Excellent</div>
+                </div>
+            </div>
+
+            <!-- Carbon Input Form -->
+            <div id="calculator" class="form-container glassmorphism premium-card">
+                <div class="form-header">
+                    <h3>Calculate Your Carbon Footprint</h3>
+                    <div class="form-icon">🧮</div>
+                </div>
+                <form id="carbonForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <input type="text" id="transport" required>
+                            <label for="transport">Transportation Type</label>
+                            <select id="transportSelect" style="display: none;">
+                                <option value="">Select transportation</option>
+                                <option value="car">Car</option>
+                                <option value="bike">Bike</option>
+                                <option value="bus">Bus</option>
+                                <option value="cycle">Cycle/Walking</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="distance" min="0" step="0.1" required>
+                            <label for="distance">Distance Traveled (km)</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="electricity" min="0" step="0.1" required>
+                            <label for="electricity">Electricity Usage (units)</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="waste" min="0" step="0.1" required>
+                            <label for="waste">Waste Generated (kg)</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="water" min="0" step="0.1" required>
+                            <label for="water">Water Usage (liters)</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary calculate-btn" id="calculateBtn">Calculate</button>
+                </form>
+            </div>
+
+            <!-- AI Suggestions -->
+            <div class="ai-assistant glassmorphism premium-card" id="suggestions" style="display: none;">
+                <div class="ai-header">
+                    <div class="ai-avatar">
+                        <span>🤖</span>
+                    </div>
+                    <h3>AI Assistant</h3>
+                    <div class="typing-indicator" id="typingIndicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="ai-messages" id="aiMessages"></div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-container">
+                <div class="chart-card glassmorphism premium-card">
+                    <div class="chart-header">
+                        <h3>Emission Breakdown</h3>
+                        <div class="chart-icon">📊</div>
+                    </div>
+                    <canvas id="pieChart"></canvas>
+                </div>
+                <div class="chart-card glassmorphism premium-card">
+                    <div class="chart-header">
+                        <h3>Weekly Emissions</h3>
+                        <div class="chart-icon">📈</div>
+                    </div>
+                    <canvas id="barChart"></canvas>
+                </div>
+                <div class="chart-card glassmorphism premium-card">
+                    <div class="chart-header">
+                        <h3>Monthly Performance</h3>
+                        <div class="chart-icon">📉</div>
+                    </div>
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+
+            <!-- History -->
+            <div class="history-container glassmorphism premium-card">
+                <div class="history-header">
+                    <h3>Recent Calculations</h3>
+                    <div class="history-icon">📝</div>
+                </div>
+                <div id="historyList"></div>
+                <button class="btn-secondary" id="downloadReport">Download PDF Report</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Smart Features</h2>
+                <p>Advanced AI-powered sustainability tools</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card glassmorphism premium-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Real-time Tracking</h3>
+                    <p>Monitor your carbon footprint in real-time with intelligent calculations.</p>
+                </div>
+                <div class="feature-card glassmorphism premium-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Recommendations</h3>
+                    <p>Get personalized sustainability tips powered by advanced AI algorithms.</p>
+                </div>
+                <div class="feature-card glassmorphism premium-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Smart Analytics</h3>
+                    <p>Beautiful charts and graphs to visualize your emission patterns.</p>
+                </div>
+                <div class="feature-card glassmorphism premium-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Emission Monitoring</h3>
+                    <p>Track and reduce your environmental impact with precision.</p>
+                </div>
+                <div class="feature-card glassmorphism premium-card">
+                    <div class="feature-icon">🏙️</div>
+                    <h3>Smart Alandi Initiative</h3>
+                    <p>Join the movement to make Alandi a sustainable smart city.</p>
+                </div>
+                <div class="feature-card glassmorphism premium-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Calculations</h3>
+                    <p>Get immediate carbon footprint results with accurate formulas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About Smart Alandi Initiative</h2>
+                    <p>The Smart Alandi Carbon Intelligence System is designed to help residents of Alandi monitor and reduce their carbon footprint. Located in the heart of Maharashtra, Alandi is known for its spiritual significance and growing population.</p>
+                    <p>Our AI-powered platform provides intelligent recommendations for sustainable living, with special focus on reducing emissions during festivals and pilgrimages. Join us in building a greener Alandi!</p>
+                    <div class="alandi-highlights">
+                        <div class="highlight-item">
+                            <span class="highlight-icon">🚌</span>
+                            <span>Promote PMPML buses for eco-friendly transport</span>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="highlight-icon">🚶</span>
+                            <span>Encourage walking and cycling in the region</span>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="highlight-icon">🌸</span>
+                            <span>Reduce festival emissions through awareness</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="eco-stats">
+                        <div class="stat-circle">
+                            <span class="stat-value" data-target="75">0</span>
+                            <span class="stat-unit">%</span>
+                            <span class="stat-desc">Emission Reduction</span>
+                        </div>
+                        <div class="stat-circle">
+                            <span class="stat-value" data-target="500">0</span>
+                            <span class="stat-unit">+</span>
+                            <span class="stat-desc">Active Users</span>
+                        </div>
+                        <div class="stat-circle">
+                            <span class="stat-value" data-target="24">0</span>
+                            <span class="stat-unit">/7</span>
+                            <span class="stat-desc">Monitoring</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>Get In Touch</h2>
+                    <p>Have questions about the Smart Alandi Carbon Intelligence System? We'd love to hear from you!</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <span>info@smartalandi.org</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📞</span>
+                            <span>+91-123-456-7890</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📍</span>
+                            <span>Alandi, Maharashtra, India</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form class="glassmorphism premium-card">
+                        <h3>Send Message</h3>
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Smart Alandi CIS</h3>
+                <p>Building a sustainable future for Alandi through intelligent carbon monitoring.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">🌐</a>
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">📷</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Carbon Calculator</a></li>
+                    <li><a href="#">Sustainability Tips</a></li>
+                    <li><a href="#">API Documentation</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Newsletter</h4>
+                <p>Stay updated with latest sustainability news.</p>
+                <div class="newsletter">
+                    <input type="email" placeholder="Enter email">
+                    <button class="btn-primary">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Smart Alandi Carbon Intelligence System. All rights reserved.</p>
+            <div class="footer-wave"></div>
+        </div>
+    </footer>
+
+    <!-- Loading Screen -->
+    <div id="loading" class="loading-overlay" style="display: none;">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h3>Analyzing Your Carbon Footprint</h3>
+            <p>AI is calculating your environmental impact...</p>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Real-time Clock -->
+    <div class="real-time-clock" id="realTimeClock">
+        <span id="currentTime"></span>
+        <span id="currentDate"></span>
+    </div>
+
+    <!-- Emission Saved Today -->
+    <div class="emission-saved" id="emissionSaved">
+        <div class="saved-icon">🌱</div>
+        <div class="saved-text">
+            <span id="savedAmount">0</span> kg CO₂ saved today
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
